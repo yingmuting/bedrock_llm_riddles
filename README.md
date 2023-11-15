@@ -1,9 +1,9 @@
 # 完蛋！我被Bedrock LLM包围了！
 
-## 项目简介
+## 简介
 《完蛋！我被Bedrock LLM包围了！》是一款智力挑战游戏，在这个游戏中，玩家需要巧妙构造问题，挑战LLM给出满足特定条件的回答。
 
-## 项目目标
+## 目标
 1. AWS Bedrock提供托管多个主流的LLM大模型，支持通过SDK/API/CLI方式调用，方便开发者熟悉调用Bedrock服务
 2. 通过关卡挑战，方便玩家了解prompt engineering的魅力
 
@@ -28,7 +28,7 @@
 ## 贡献指南
 我们欢迎大家为《完蛋！我被Bedrock LLM包围了！》做出贡献，包括提出更多好玩的问题，提供更多的玩法。请按以下步骤操作：
 
-1. 访问项目地址 [ModelScope](https://github.com/yingmuting/bedrock_llm_riddles/) 并fork项目。
+1. 访问项目地址 [Bedrock LLMRiddles](https://github.com/yingmuting/bedrock_llm_riddles/) 并fork项目。
 2. 在你的本地环境中创建你的特性分支 (`git checkout -b feature/AmazingFeature`)。
 3. 提交你的改动 (`git commit -m 'Add some AmazingFeature'`)。
 4. 将你的改动推送到分支上 (`git push origin feature/AmazingFeature`)。
