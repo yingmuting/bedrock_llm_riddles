@@ -209,8 +209,8 @@ with block as demo:
     challenge_info = gr.Textbox(
         value=update_challenge_info(current_chapter_index,
                                     current_challenge_index),
-        label='当前挑战', disabled=True)
-    challenge_result = gr.Textbox(label='挑战结果', disabled=True)
+        label='当前挑战', interactive=False)
+    challenge_result = gr.Textbox(label='挑战结果', interactive=False)
     chatbot = gr.Chatbot(
          label='', elem_classes='control-height')
     message = gr.Textbox(lines=2, label='输入')
@@ -234,4 +234,4 @@ with block as demo:
 </div>
 """)
 
-demo.launch(height=800, server_name="0.0.0.0", server_port=80)
+demo.launch(height=800, server_name="0.0.0.0", server_port=7860)
