@@ -13,7 +13,6 @@ from ch1 import challenge1
 from ch2 import challenge2
 from ch3 import challenge3
 from ch4 import challenge4
-from llm import create_model
 from PIL import Image, ImageDraw, ImageFont
 
 # bedrock_client = boto3.client('bedrock')
