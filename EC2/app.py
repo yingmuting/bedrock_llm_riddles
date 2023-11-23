@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 # bedrock_client = boto3.client('bedrock')
 # bedrock_client.list_foundation_models()
 
-bedrock = boto3.client(service_name='bedrock-runtime')
+bedrock = boto3.client(service_name='bedrock-runtime', region_name='us-east-1')
 
 def _invoke_claude(txt, 
                    modelid = 'anthropic.claude-v2',
@@ -126,20 +126,6 @@ def validate_challenge(response, input, state, generate_response):
             update_challenge_info(current_chapter_index, current_challenge_index)
 
 
-def generate_response_backup(input, model_name):
-    if model_name in model_cache:
-        model = model_cache[model_name]
-    else:
-        model = create_model(model_name)
-        model_cache[model_name] = model
-
-    try:
-        return model(input)
-    except RuntimeError as e:
-        # if exception happens, print error in log and return empty str
-        print('error', e)
-        return ''
-
 def generate_response(input, model_name):
     prompt_text ="\n\nHuman: %s \n\nAssistant:"% input
     print(prompt_text)
@@ -196,60 +182,57 @@ def generate_share_image(state):
     return gr.Image.update(visible=True, value=img_pil)
 
 
-def create_app():
-    # Gradio界面构建
-    block = gr.Blocks()
 
-    with block as demo:
-        current_chapter_index = 0
-        current_challenge_index = 0
-        state = gr.State(
-            dict(
-                current_challenge_index=current_challenge_index,
-                current_chapter_index=current_chapter_index))
+# Gradio界面构建
+block = gr.Blocks()
 
-        gr.Markdown("""<center><font size=6>完蛋！我被LLM包围了！</center>""")
-        gr.Markdown("""<font size=3>欢迎来玩LLM Riddles复刻版：完蛋！我被LLM包围了！
+with block as demo:
+    current_chapter_index = 0
+    current_challenge_index = 0
+    state = gr.State(
+        dict(
+            current_challenge_index=current_challenge_index,
+            current_chapter_index=current_chapter_index))
 
-    你将通过本游戏对大型语言模型产生更深刻的理解。
+    gr.Markdown("""<center><font size=6>完蛋！我被LLM包围了！</center>""")
+    gr.Markdown("""<font size=3>欢迎来玩LLM Riddles复刻版：完蛋！我被LLM包围了！
 
-    在本游戏中，你需要构造一个提给一个大型语言模型的问题，使得它回复的答案符合要求。""")
+你将通过本游戏对大型语言模型产生更深刻的理解。
 
-        model_selector = gr.Dropdown(
-            label='选择模型',
-            choices=['Claude'],
-            value='Claude')
-        question_info = gr.Markdown(
-            update_question_info(current_chapter_index, current_challenge_index))
-        challenge_info = gr.Textbox(
-            value=update_challenge_info(current_chapter_index,
-                                        current_challenge_index),
-            label='当前挑战', disabled=True)
-        challenge_result = gr.Textbox(label='挑战结果', disabled=True)
-        chatbot = gr.Chatbot(
-             label='', elem_classes='control-height')
-        message = gr.Textbox(lines=2, label='输入')
+在本游戏中，你需要构造一个提给一个大型语言模型的问题，使得它回复的答案符合要求。""")
 
-        with gr.Row():
-            submit = gr.Button('🚀 发送')
-            # shareBtn = gr.Button('💯 分享成绩')
+    model_selector = gr.Dropdown(
+        label='选择模型',
+        choices=['Claude'],
+        value='Claude')
+    question_info = gr.Markdown(
+        update_question_info(current_chapter_index, current_challenge_index))
+    challenge_info = gr.Textbox(
+        value=update_challenge_info(current_chapter_index,
+                                    current_challenge_index),
+        label='当前挑战', disabled=True)
+    challenge_result = gr.Textbox(label='挑战结果', disabled=True)
+    chatbot = gr.Chatbot(
+         label='', elem_classes='control-height')
+    message = gr.Textbox(lines=2, label='输入')
 
-        # shareImg = gr.Image(label='分享成绩', visible=False, width=400)
+    with gr.Row():
+        submit = gr.Button('🚀 发送')
+        # shareBtn = gr.Button('💯 分享成绩')
 
-        submit.click(
-            on_submit,
-            inputs=[message, model_selector, state],
-            outputs=[challenge_result, chatbot, question_info, challenge_info])
-        # shareBtn.click(generate_share_image, inputs=[state], outputs=[shareImg])
+    # shareImg = gr.Image(label='分享成绩', visible=False, width=400)
 
-        gr.HTML("""
-    <div style="text-align: center;">
-      <span>
-      </span>
-    </div>
-    """)
+    submit.click(
+        on_submit,
+        inputs=[message, model_selector, state],
+        outputs=[challenge_result, chatbot, question_info, challenge_info])
+    # shareBtn.click(generate_share_image, inputs=[state], outputs=[shareImg])
 
-    demo.queue(10).launch(height=800, share=True)
+    gr.HTML("""
+<div style="text-align: center;">
+  <span>
+  </span>
+</div>
+""")
 
-if __name__ == '__main__':
-    create_app()
+demo.launch(height=800, server_name="0.0.0.0", server_port=80)

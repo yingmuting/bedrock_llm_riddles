@@ -25,6 +25,35 @@
 4. 前往[AWS Bedrock](https://us-east-1.console.aws.amazon.com/bedrock/home) 打开左侧菜单“Model access”，点击“Manage model access”开通“Anthropic”-“Claude”模型访问权限
 5. 执行启动命令`python app.py`
 
+sudo yum install -y git
+git clone https://github.com/yingmuting/bedrock_llm_riddles.git
+sudo yum install -y python
+sudo yum install -y pip
+pip install -r requirements.txt
+
+
+sudo yum install -y nginx
+sudo vi /etc/nginx/nginx.conf
+
+http模块：
+    server {
+        listen 8080;
+        listen [::]:8080;
+        server_name _;
+
+        location / {  # Change this if you'd like to server your Gradio app on a different path
+            proxy_pass http://127.0.0.1:7860/; # Change this if your Gradio app will be running on a different port
+            proxy_redirect off;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Host $host;
+        }
+    }
+
+
+sudo systemctl restart nginx
+
 ## 贡献指南
 我们欢迎大家为《完蛋！我被Bedrock LLM包围了！》做出贡献，包括提出更多好玩的问题，提供更多的玩法。请按以下步骤操作：
 
