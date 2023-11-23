@@ -84,7 +84,7 @@
     # 启动应用
     python app.py
    ```
-6. 浏览器访问 http://<EC2 Public IP>
+6. 浏览器访问 `http://<EC2 Public IP>`
 7. 开始挑战游戏！
 
 ## 贡献指南
