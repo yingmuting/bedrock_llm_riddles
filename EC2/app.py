@@ -5,15 +5,18 @@ import boto3
 import timeit
 import functools
 import inspect
-import os
 import random
 import re
 import gradio as gr
-from ch1 import challenge1
-from ch2 import challenge2
-from ch3 import challenge3
-from ch4 import challenge4
 from PIL import Image, ImageDraw, ImageFont
+
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
+from challenge.ch1 import challenge1
+from challenge.ch2 import challenge2
+from challenge.ch3 import challenge3
 
 # bedrock_client = boto3.client('bedrock')
 # bedrock_client.list_foundation_models()
@@ -47,14 +50,13 @@ challenges = [
     challenge1,
     challenge2,
     challenge3,
-    challenge4,
 ]
 
 CONGRATS_STR = '所有挑战完成！👏🏻👏🏻👏🏻👏🏻👏🏻👏🏻'
 CONGRATS_QUESTION = f'<center><font size=4>{CONGRATS_STR}</center>\n\n <center><font size=3> </center>'
 
 SHARE_CHALLENGES_HINT = [
-    '小试牛刀新手上路', '数字玩家已经上线', '巅峰对决，你就是提示词高手', '无人之境，胜利就在前方', '哇塞，我冲出了LLM的重围'
+    '急停仙人', '万物理论', '诡辩大师', '哇塞，我冲出了LLM的重围'
 ]
 
 
@@ -96,7 +98,6 @@ def validate_challenge(response, input, state, generate_response):
         valid_result = validate_fn(response, input, generate_response)
     else:
         valid_result = validate_fn(response, input)
-    print("--1234--")
     if valid_result:
         challenge_result = '挑战成功！进入下一关。'
         # 检查是否还有更多挑战在当前章节
@@ -157,10 +158,10 @@ def on_submit(input, model_name, state):
 
 def generate_share_image(state):
     share_state = state['current_chapter_index']
-    if share_state > 3:
-        share_state = 3
+    if share_state > 2:
+        share_state = 2
     if 'success' in state:
-        share_state = 4  # 全部通关为 4
+        share_state = 3  # 全部通关为 3
 
     img_pil = Image.open(f'assets/background{share_state}.png')
     # 设置需要显示的字体
@@ -171,7 +172,7 @@ def generate_share_image(state):
     draw.text((70, 1000),
               SHARE_CHALLENGES_HINT[share_state],
               fill=(255, 255, 255))
-    if share_state == 4:
+    if share_state == 3:
         share_chapter_text = '顺利闯过了全部关卡'
     else:
         share_chapter_text = f"我顺利闯到第 {state['current_chapter_index']+1}-{state['current_challenge_index']+1} 关"
