@@ -22,7 +22,7 @@
 1. 前往[AWS Sagemaker Notebook](https://us-east-1.console.aws.amazon.com/sagemaker/home?region=us-east-1#/notebook-instances)，创建笔记本实例，iam role授予调用bedrock权限，网络选择 直接 Internet 访问，建议使用管理员账号
 2. 克隆项目代码：
    ```
-   git clone https://github.com/yingmuting/bedrock_llm_riddles.git
+   https://github.com/yingmuting/bedrock_llm_riddles.git
    ```
 3. 进入到`/home/ec2-user/SageMaker/bedrock_llm_riddles/SageMaker`目录
 4. 打开`game.ipynb`，执行code
