@@ -56,7 +56,7 @@ CONGRATS_STR = '所有挑战完成！👏🏻👏🏻👏🏻👏🏻👏🏻�
 CONGRATS_QUESTION = f'<center><font size=4>{CONGRATS_STR}</center>\n\n <center><font size=3> </center>'
 
 SHARE_CHALLENGES_HINT = [
-    '急停仙人', '万物理论', '诡辩大师', '哇塞，我冲出了LLM的重围'
+    '急停仙人', '万物理论', '诡辩大师', '哇塞，我冲出了Bedrock LLM的重围'
 ]
 
 
@@ -194,8 +194,8 @@ with block as demo:
             current_challenge_index=current_challenge_index,
             current_chapter_index=current_chapter_index))
 
-    gr.Markdown("""<center><font size=6>完蛋！我被LLM包围了！</center>""")
-    gr.Markdown("""<font size=3>欢迎来玩LLM Riddles复刻版：完蛋！我被LLM包围了！
+    gr.Markdown("""<center><font size=6>完蛋！我被Bedrock LLM包围了！</center>""")
+    gr.Markdown("""<font size=3>欢迎来玩LLM Riddles复刻版：完蛋！我被Bedrock LLM包围了！
 
 你将通过本游戏对大型语言模型产生更深刻的理解。
 
