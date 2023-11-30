@@ -5,7 +5,7 @@ challenge2 = {
         {
             'title': '第1题 认识数字',
             'description': '请你构造一个问题，问题中不能包括阿拉伯数字，使模型的回答中包含0-9这10个阿拉伯数字',
-            'validator': lambda response, input: any(str(i) in response for i in range(10)) and all(str(i) not in input for i in range(10))
+            'validator': lambda response, input: all(str(i) in response for i in range(10)) and all(str(i) not in input for i in range(10))
         },
         {
             'title': '第2题 基本运算',
