@@ -30,12 +30,12 @@ challenge1 = {
         {
             'title': '第2题 全是停顿',
             'description': '请你构造一个问题，使模型的回答仅包含中文标点符号，字数在5个以上。',
-            'validator': lambda response, input: is_chinese_str(response) and len(response) > 5 and all(is_chinese_punctuation(char) for char in response)
+            'validator': lambda response, input: len(response) > 5 and all(is_chinese_punctuation(char) for char in response)
         },
         {
             'title': '第3题 精准停顿',
             'description': '请你构造一个问题，使模型的回答仅包含中文，字数为10字（可以有标点符号，标点符号不计入字数）。',
-            'validator': lambda response, input: is_chinese_str(response) and len(remove_chinese_punctuation(response)) == 10
+            'validator': lambda response, input: is_chinese_str(remove_chinese_punctuation(response)) and len(remove_chinese_punctuation(response)) == 10
         },
     ]
 }
