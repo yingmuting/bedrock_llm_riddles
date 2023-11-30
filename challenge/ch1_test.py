@@ -55,8 +55,7 @@ class TestCh1(unittest.TestCase):
     self.assertEqual(remove_chinese_punctuation('中文。'), '中文')
     self.assertEqual(remove_chinese_punctuation('中文'), '中文')
 
-  def test_challenge1(self):
-    # problem 0
+  def test_challenge1_problem0(self):
     # has non-chinese
     self.assertFalse(challenge1['problems'][0]['validator']('a', ''))
     # has punctuation
@@ -66,7 +65,7 @@ class TestCh1(unittest.TestCase):
     # correct
     self.assertTrue(challenge1['problems'][0]['validator']('中文中文中文中文中文中文', ''))
 
-    # problem 1
+  def test_challenge1_problem1(self):
     # has non-chinese
     self.assertFalse(challenge1['problems'][1]['validator']('a', ''))
     # not enough characters
@@ -76,7 +75,7 @@ class TestCh1(unittest.TestCase):
     # correct
     self.assertTrue(challenge1['problems'][1]['validator']('，。？！；：、【】「」『』《》“”‘’（）…—', ''))
 
-    # problem 2
+  def test_challenge1_problem2(self):
     # has non-chinese
     self.assertFalse(challenge1['problems'][2]['validator']('a', ''))
     # wrong number of characters
