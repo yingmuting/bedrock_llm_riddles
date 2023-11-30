@@ -32,7 +32,7 @@ class TestCh2(unittest.TestCase):
   def test_challenge2_problem2(self):
     # has number in input
     for n in range(10):
-      self.assertFalse(challenge2['problems'][0]['validator']('', str(n)))
+      self.assertFalse(challenge2['problems'][2]['validator']('', str(n)))
     # no 10000000000 in response
     self.assertFalse(challenge2['problems'][2]['validator']('0', ''))
     # correct
